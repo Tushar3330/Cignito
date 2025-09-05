@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    ppr: "incremental",
+    
+  },
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -14,11 +18,15 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*",
       },
+      {
+        protocol: "http",
+        hostname: "*",
+      },
     ],
   },
   devIndicators: {
     position: "bottom-right",
   },
-};
+};  
 
-export default nextConfig;
+export default nextConfig;  

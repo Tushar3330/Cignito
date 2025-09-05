@@ -13,6 +13,11 @@ export function formatDate(date: string) {
   });
 }
 
+export function checksinglenumber (view: number) {
+  //if <10 view else views
+  return view < 10 ? "View" : "iews";
+}
+
 export function parseServerActionResponse<T>(response: T) {
   return JSON.parse(JSON.stringify(response));
 }
