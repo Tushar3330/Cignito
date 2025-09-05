@@ -31,7 +31,7 @@ const config: Config = {
                 },
             },
             fontFamily: {
-                "work-sans": ["var(--font-work-sans)"],
+                "work-sans": ["var(--font-work-sans)", "sans-serif"],
             },
             borderRadius: {
                 lg: "var(--radius)",
