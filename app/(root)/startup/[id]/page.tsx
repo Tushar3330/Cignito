@@ -11,7 +11,7 @@ import Image from "next/image";
 
 import markdownit from "markdown-it";
 import { Skeleton } from "@/components/ui/skeleton";
-import View from "../../../../components/View";
+import View from "@/components/View";
 import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
 
 const md = markdownit();
@@ -21,15 +21,47 @@ export const experimental_ppr = true;
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
-  const [post,] = await Promise.all([
+  const [post, playlist] = await Promise.all([
     client.fetch(STARTUP_BY_ID_QUERY, { id }),
+    // Try to get the specific playlist, fallback to any playlist with content
     client.fetch(PLAYLIST_BY_SLUG_QUERY, {
       slug: "editor-picks-new",
+    }).then(result => {
+      if (result && result.select?.length > 0) {
+        return result;
+      }
+      // Fallback: get any playlist with content
+      return client.fetch(`*[_type == "playlist" && count(select) > 0][0]{
+        _id,
+        title,
+        slug,
+        select[]->{
+          _id,
+          _createdAt,
+          title,
+          slug,
+          author->{
+            _id,
+            name,
+            slug,
+            image,
+            bio
+          },
+          views,
+          description,
+          category,
+          image,
+          pitch
+        }
+      }`);
     }),
   ]);
 
   if (!post) return notFound();
 
+  console.log("Playlist result:", playlist);
+  
+  const editorPosts = playlist?.select || [];
   const parsedContent = md.render(post?.pitch || "");
 
   return (
@@ -85,7 +117,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
 
         <hr className="divider" />
-{/* 
+
         {editorPosts?.length > 0 && (
           <div className="max-w-4xl mx-auto">
             <p className="text-30-semibold">Editor Picks</p>
@@ -96,7 +128,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               ))}
             </ul>
           </div>
-        )} */}
+        )}
 
         <Suspense fallback={<Skeleton className="view_skeleton" />}>
           <View id={id} />
