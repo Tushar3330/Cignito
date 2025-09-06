@@ -10,7 +10,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     ppr: "incremental",
-    
+    esmExternals: "loose",
+    serverComponentsExternalPackages: ['@sanity/client'],
   },
   images: {
     dangerouslyAllowSVG: true,
@@ -26,6 +27,44 @@ const nextConfig: NextConfig = {
     ],
   },
   devIndicators: false,
+  webpack: (config, { isServer }) => {
+    // Add fallbacks for Node.js modules that Sanity might need
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+      crypto: false,
+      stream: false,
+      url: false,
+      zlib: false,
+      http: false,
+      https: false,
+      assert: false,
+      os: false,
+      path: false,
+    };
+
+    // Add externals for problematic packages
+    if (!isServer) {
+      config.externals = config.externals || [];
+      config.externals.push({
+        'utf-8-validate': 'commonjs utf-8-validate',
+        'bufferutil': 'commonjs bufferutil',
+      });
+    }
+
+    // Handle ES modules properly
+    config.module.rules.push({
+      test: /\.m?js$/,
+      type: 'javascript/auto',
+      resolve: {
+        fullySpecified: false,
+      },
+    });
+
+    return config;
+  },
 };
 
 export default withSentryConfig(nextConfig, {
