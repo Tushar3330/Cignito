@@ -25,9 +25,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  devIndicators: {
-    position: "bottom-right",
-  },
+  devIndicators: false,
 };
 
 export default withSentryConfig(nextConfig, {
