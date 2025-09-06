@@ -41,11 +41,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         token.id = user?._id;
       }
+      console.log(token);
 
       return token;
     },
     async session({ session, token }) {
       Object.assign(session, { id: token.id });
+      console.log(session);
       return session;
     },
   },
