@@ -10,9 +10,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     ppr: "incremental",
-    esmExternals: "loose",
-    serverComponentsExternalPackages: ['@sanity/client'],
   },
+  serverExternalPackages: ['@sanity/client'],
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
