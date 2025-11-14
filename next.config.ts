@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+
+//sentry removed 
+
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
