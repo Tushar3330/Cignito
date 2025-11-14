@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import "@uiw/react-md-editor/markdown-editor.css";
+@import "@uiw/react-markdown-preview/markdown.css";
 
 @tailwind base;
 @tailwind components;
@@ -7,6 +9,35 @@
 @layer base {
   :root {
     --radius: 0.5rem;
+  }
+
+  body {
+    @apply bg-white text-black;
+  }
+
+  /* Hide Next.js dev error indicator */
+  body > nextjs-portal {
+    display: none !important;
+  }
+
+  button[aria-label="Hide error"] {
+    display: none !important;
+  }
+
+  #__next-build-watcher {
+    display: none !important;
+  }
+
+  /* Hide Turbopack/Next.js indicator (the N icon) */
+  #__next-indicator,
+  #__next-dev-overlay-indicator,
+  [data-nextjs-container],
+  [data-nextjs-dev-build-watcher],
+  [class*="nextjs"],
+  [class*="turbopack"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
   }
 }
 
@@ -44,11 +75,15 @@
   }
 
   .text-14-normal {
-    @apply font-normal text-sm text-white-100/80;
+    @apply font-normal text-sm text-gray-400;
   }
 
   .pink_container {
-    @apply w-full bg-primary min-h-[530px] pattern flex justify-center items-center flex-col py-10 px-6;
+    @apply w-full bg-primary min-h-[530px] flex justify-center items-center flex-col py-10 px-6;
+    background-image: linear-gradient(90deg, transparent 49.5%, rgba(251, 232, 67, .2) 0, rgba(251, 232, 67, .6) 50.5%, transparent 0);
+    background-size: 5% 100%;
+    background-position: 50%;
+    background-repeat: repeat-x;
   }
 
   .tag {
@@ -56,7 +91,7 @@
   }
 
   .heading {
-    @apply uppercase bg-black px-6 py-3 font-work-sans font-extrabold text-white sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
+    @apply my-5 max-w-4xl bg-black px-6 py-3 text-center font-work-sans text-[36px] font-extrabold uppercase leading-[46px] text-white;
   }
 
   .sub-heading {
@@ -76,7 +111,7 @@
   }
 
   .no-result {
-    @apply text-black-100 text-sm font-normal;
+    @apply text-gray-600 text-sm font-normal;
   }
 
   /* profile */
@@ -124,7 +159,7 @@
   }
 
   .search-input {
-    @apply flex-1 font-bold placeholder:font-semibold placeholder:text-black-100 w-full h-auto outline-none;
+    @apply flex-1 font-bold placeholder:font-semibold placeholder:text-gray-500 w-full h-auto outline-none;
   }
 
   .search-btn {
@@ -137,11 +172,11 @@
   }
 
   .startup-card_date {
-    @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-full group-hover:bg-white-100;
+    @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-full group-hover:bg-white;
   }
 
   .startup-card_desc {
-    @apply font-normal text-[16px] line-clamp-2 my-3 text-black-100 break-all;
+    @apply font-normal text-[16px] line-clamp-2 my-3 text-gray-600 break-all;
   }
 
   .startup-card_img {
@@ -149,7 +184,7 @@
   }
 
   .startup-card_btn {
-    @apply rounded-full bg-black-200 font-medium text-[16px] text-white px-5 py-3 !important;
+    @apply rounded-full bg-gray-800 font-medium text-[16px] text-white px-5 py-3 !important;
   }
 
   .startup-card_skeleton {
@@ -166,11 +201,11 @@
   }
 
   .startup-form_input {
-    @apply border-[3px] border-black px-5 py-7 text-[18px] text-black font-semibold rounded-full mt-3 placeholder:text-black-300 !important;
+    @apply border-[3px] border-black px-5 py-7 text-[18px] text-black font-semibold rounded-full mt-3 placeholder:text-gray-500 !important;
   }
 
   .startup-form_textarea {
-    @apply border-[3px] border-black p-5 text-[18px] text-black font-semibold rounded-[20px] mt-3 placeholder:text-black-300 !important;
+    @apply border-[3px] border-black p-5 text-[18px] text-black font-semibold rounded-[20px] mt-3 placeholder:text-gray-500 !important;
   }
 
   .startup-form_error {
@@ -178,7 +213,7 @@
   }
 
   .startup-form_editor {
-    @apply mt-3 border-[3px] border-black text-[18px] text-black font-semibold placeholder:text-black-300 !important;
+    @apply mt-3 border-[3px] border-black text-[18px] text-black font-semibold placeholder:text-gray-500 !important;
   }
 
   .startup-form_btn {

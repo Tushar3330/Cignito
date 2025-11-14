@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cignito - Developer Bug Solving Platform
 
-## Getting Started
+A collaborative platform where developers can share coding bugs, post screenshots, and get expert solutions from the community.
 
-First, run the development server:
+## 🚀 Features
 
+- **Post Bugs**: Share your coding issues with detailed descriptions, code snippets, and screenshots
+- **Get Solutions**: Community members can provide solutions with code examples and explanations
+- **Smart Vote System**: 
+  - One vote per user per bug/solution
+  - Toggle votes (click again to remove)
+  - Cannot vote on your own content
+  - Prevents reputation manipulation
+- **Accept Solutions**: Bug authors can mark solutions as accepted
+- **Reputation System**: 
+  - +2 reputation for each upvote on bugs
+  - +3 reputation for each upvote on solutions
+  - Reputation properly adjusted when votes are removed or changed
+- **Unique View Tracking**: Each user counted once per bug, no spam counting
+- **Search & Filter**: Find bugs by programming language, framework, or keywords
+- **User Profiles**: Track your bugs, solutions, and reputation
+- **Multi-Auth Support**: Email/Password, GitHub OAuth, and Google OAuth all link to one account
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 (App Router with React 19)
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js v5 with Email/Password, GitHub OAuth, and Google OAuth
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: shadcn/ui + Radix UI
+- **Image Upload**: Cloudinary
+- **Email Service**: Resend (password reset)
+- **Deployment**: Vercel
+- **Monitoring**: Sentry
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js 20+ 
+- npm/yarn/pnpm
+- PostgreSQL database (Neon recommended)
+- GitHub OAuth App
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Tushar3330/Cignito.git
+cd cignito
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file with:
 
-## Learn More
+```bash
+# Database (Get from Neon.tech)
+DATABASE_URL="postgresql://..."
 
-To learn more about Next.js, take a look at the following resources:
+# NextAuth
+AUTH_SECRET="your-secret-key"
+AUTH_GITHUB_ID="your-github-oauth-id"
+AUTH_GITHUB_SECRET="your-github-oauth-secret"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Run database migrations:
+```bash
+npx prisma migrate dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Generate Prisma Client:
+```bash
+npx prisma generate
+```
 
-## Deploy on Vercel
+6. Start the development server:
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000) to see the app!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🗄️ Database Schema
+
+The platform uses PostgreSQL with the following main models:
+
+- **User**: Developer profiles with reputation scores
+- **Bug**: Posted issues with code snippets and screenshots
+- **Solution**: Community-provided fixes
+- **Vote**: Upvote/downvote system
+- **Comment**: Discussion threads
+- **Tag**: Categorization system
+
+## 📝 API Routes
+
+- `/api/auth/[...nextauth]` - Authentication endpoints
+
+## 🎨 Design System
+
+Custom Tailwind utilities and components:
+- Color palette: Pink primary, Yellow secondary
+- Typography: Work Sans font family
+- Components: Cards, forms, buttons with custom shadows
+- Responsive breakpoints
+
+## 🚢 Deployment
+
+The easiest way to deploy:
+
+1. Push to GitHub
+2. Import project in Vercel
+3. Add environment variables
+4. Deploy!
+
+Vercel will automatically set up:
+- PostgreSQL database (Vercel Postgres)
+- Production builds
+- Preview deployments
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+## 📄 License
+
+MIT License - feel free to use this project for learning or building your own bug platform!
+
+## 🙏 Acknowledgments
+
+Built with ❤️ using modern web technologies and industry-standard practices.
