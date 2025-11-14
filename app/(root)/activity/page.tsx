@@ -56,8 +56,8 @@ const ActivityFeed = async () => {
           </div>
         ) : (
           <ul className="card_grid">
-            {bugs.map((bug: BugCardType) => (
-              <BugCard key={bug.id} bug={bug} />
+            {bugs.map((bug) => (
+              <BugCard key={bug.id} bug={bug as unknown as BugCardType} />
             ))}
           </ul>
         )}
