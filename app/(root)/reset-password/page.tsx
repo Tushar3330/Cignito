@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
 
 export default function ResetPasswordPage() {
@@ -13,7 +14,19 @@ export default function ResetPasswordPage() {
             Enter your new password
           </p>
         </div>
-        <ResetPasswordForm />
+        <Suspense fallback={
+          <div className="bg-white border-[5px] border-black rounded-[22px] shadow-200 p-8">
+            <div className="animate-pulse space-y-6">
+              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+              <div className="h-12 bg-gray-200 rounded-full"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+              <div className="h-12 bg-gray-200 rounded-full"></div>
+              <div className="h-12 bg-gray-200 rounded-full"></div>
+            </div>
+          </div>
+        }>
+          <ResetPasswordForm />
+        </Suspense>
       </div>
     </div>
   );
