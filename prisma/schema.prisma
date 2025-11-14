@@ -1,0 +1,307 @@
+// Cignito - Developer Bug Solving Platform
+// Prisma Schema for PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Application Models
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String? // For email/password auth
+  image         String?
+  username      String?   @unique
+  bio           String?   @db.Text
+  location      String? // From GitHub
+  company       String? // From GitHub
+  website       String? // From GitHub
+  githubId      Int?      @unique
+  githubUsername String? // GitHub username
+  reputation    Int       @default(0)
+  resetToken    String?   @unique // Password reset token
+  resetTokenExpiry DateTime? // Token expiry time
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts  Account[]
+  sessions  Session[]
+  bugs      Bug[]
+  solutions Solution[]
+  comments  Comment[]
+  votes     Vote[]
+  bookmarks Bookmark[]
+  bugViews  BugView[]
+  solutionViews SolutionView[]
+  
+  // Follow relationships
+  following Follow[] @relation("UserFollowing")
+  followers Follow[] @relation("UserFollowers")
+
+  @@index([email])
+  @@index([username])
+  @@index([githubId])
+  @@index([resetToken])
+}
+
+model Bug {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String    @db.Text
+  codeSnippet String?   @db.Text
+  images      String[] // Array of image URLs
+  language    String // "JavaScript", "Python", "TypeScript", etc.
+  framework   String? // "React", "Next.js", "Django", etc.
+  severity    Severity  @default(MEDIUM)
+  status      BugStatus @default(OPEN)
+  views       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  tags      BugTag[]
+  solutions Solution[]
+  comments  Comment[]
+  votes     Vote[]
+  bookmarks Bookmark[]
+  viewedBy  BugView[] // Track unique views
+
+  @@index([authorId])
+  @@index([status])
+  @@index([language])
+  @@index([createdAt])
+  @@index([slug])
+}
+
+model Solution {
+  id          String   @id @default(cuid())
+  content     String   @db.Text
+  codeSnippet String?  @db.Text
+  images      String[] // Array of image URLs
+  isAccepted  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  bugId String
+  bug   Bug    @relation(fields: [bugId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments Comment[]
+  votes    Vote[]
+  viewedBy SolutionView[] // Track unique views
+
+  @@index([bugId])
+  @@index([authorId])
+  @@index([isAccepted])
+  @@index([createdAt])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  bugId String?
+  bug   Bug?    @relation(fields: [bugId], references: [id], onDelete: Cascade)
+
+  solutionId String?
+  solution   Solution? @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+
+  @@index([bugId])
+  @@index([solutionId])
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  type      VoteType
+  value     Int // 1 for upvote, -1 for downvote
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bugId String?
+  bug   Bug?    @relation(fields: [bugId], references: [id], onDelete: Cascade)
+
+  solutionId String?
+  solution   Solution? @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, bugId])
+  @@unique([userId, solutionId])
+  @@index([bugId])
+  @@index([solutionId])
+  @@index([userId])
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  bugs BugTag[]
+
+  @@index([slug])
+  @@index([name])
+}
+
+model BugTag {
+  bugId String
+  bug   Bug    @relation(fields: [bugId], references: [id], onDelete: Cascade)
+
+  tagId String
+  tag   Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([bugId, tagId])
+  @@index([bugId])
+  @@index([tagId])
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bugId     String
+  bug       Bug      @relation(fields: [bugId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, bugId])
+  @@index([userId])
+  @@index([bugId])
+}
+
+// Track unique bug views per user
+model BugView {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bugId     String
+  bug       Bug      @relation(fields: [bugId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, bugId])
+  @@index([userId])
+  @@index([bugId])
+  @@index([createdAt])
+}
+
+// Track unique solution views per user
+model SolutionView {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  solutionId String
+  solution   Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, solutionId])
+  @@index([userId])
+  @@index([solutionId])
+  @@index([createdAt])
+}
+
+// Password reset tokens
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([email, token])
+  @@index([email])
+  @@index([token])
+}
+
+// Follow system - users can follow other users
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String // User who is following
+  followingId String // User being followed
+  createdAt   DateTime @default(now())
+
+  follower  User @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+  @@index([createdAt])
+}
+
+// Enums
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum BugStatus {
+  OPEN
+  IN_PROGRESS
+  SOLVED
+  CLOSED
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
+}
