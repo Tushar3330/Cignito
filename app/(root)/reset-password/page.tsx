@@ -11,7 +11,7 @@ export default function ResetPasswordPage() {
             <span className="text-secondary">Password</span>
           </h1>
           <p className="text-gray-600">
-            Enter your new password
+            Enter your new password. 
           </p>
         </div>
         <Suspense fallback={

@@ -30,22 +30,14 @@ export default function ForgotPasswordForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to send reset email");
+        throw new Error(data.error || "Failed to process request");
       }
 
-      // In dev mode, if we got a reset URL, show it to the user
-      if (data.devResetUrl) {
-        setMessage(
-          `✅ Reset link generated! Since this is localhost, click the link below or check console:`
-        );
-        // Store the URL to display
-        setTimeout(() => {
-          if (confirm("Open reset password page now?")) {
-            window.location.href = data.devResetUrl;
-          }
-        }, 500);
+      // Show coming soon message
+      if (data.featureStatus === "coming-soon") {
+        setMessage("🚧 Password reset feature is coming soon! Please contact support for assistance.");
       } else {
-        setMessage("Check your email for a password reset link!");
+        setMessage("Request processed successfully!");
       }
       setEmail("");
     } catch (err: any) {
@@ -60,13 +52,10 @@ export default function ForgotPasswordForm() {
       onSubmit={handleSubmit}
       className="bg-white border-[5px] border-black rounded-[22px] shadow-200 p-8 space-y-6"
     >
-      {process.env.NODE_ENV === "development" && (
-        <div className="bg-yellow-100 border-[3px] border-secondary text-black p-4 rounded-lg text-sm">
-          <strong>🔧 Localhost Mode:</strong> For any email, a reset link will
-          be generated and shown to you directly. In production, the link would
-          be sent via email.
-        </div>
-      )}
+      <div className="bg-yellow-100 border-[3px] border-secondary text-black p-4 rounded-lg text-sm">
+        <strong>🚧 Coming Soon:</strong> Password reset feature is currently under development. 
+        Please contact support if you need assistance with your account.
+      </div>
 
       {message && (
         <div className="bg-green-100 border-[3px] border-green-500 text-green-700 p-4 rounded-lg">
