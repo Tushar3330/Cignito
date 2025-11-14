@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import 'easymde/dist/easymde.min.css';
+import { Toaster } from "@/components/ui/toaster";
+import ClearAuthCookies from "@/components/ClearAuthCookies";
 
 const workSans = localFont({
   src: [
@@ -55,8 +56,8 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Cignito",
-  description: "Pitch, Vote and Grow",
+  title: "Cignito - Developer Bug Solving Platform",
+  description: "Share coding bugs, get expert solutions, and collaborate with developers worldwide",
 };
 
 export default function RootLayout({
@@ -67,8 +68,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={workSans.variable}>
+        <ClearAuthCookies />
         {children}
-      
+        <Toaster />
       </body>
     </html>
   );
