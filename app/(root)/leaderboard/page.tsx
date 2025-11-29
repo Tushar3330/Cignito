@@ -3,6 +3,9 @@ import Link from "next/link";
 import { getTopSolvers } from "@/lib/queries";
 import Image from "next/image";
 
+// Enable ISR for better performance
+export const revalidate = 300; // Revalidate every 5 minutes
+
 const CATEGORIES = [
   { name: " Top Solvers", active: true },
   { name: " Fastest Response", active: false },

@@ -6,6 +6,9 @@ import { getAllBugs } from "@/lib/queries";
 import { auth } from "../lib/auth";
 import { Filter, TrendingUp, Clock, CheckCircle2 } from "lucide-react";
 
+// Enable ISR (Incremental Static Regeneration) for better performance
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export default async function Home({
   searchParams,
 }: {
