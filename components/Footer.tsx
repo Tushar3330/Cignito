@@ -48,11 +48,11 @@ export default function Footer() {
               </Link>
               <p className="text-white/80 text-sm font-semibold mb-4">
                 The ultimate platform for developers to solve coding bugs together. 
-                Join our community and level up your debugging skills! 🚀
+                Join our community and level up your debugging skills! 
               </p>
               <div className="flex gap-3">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Tushar3330/Cignito"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-white/20 backdrop-blur-sm border-2 border-white rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all group"
@@ -68,7 +68,7 @@ export default function Footer() {
                   <Twitter className="w-5 h-5 text-white group-hover:text-primary" />
                 </a>
                 <a
-                  href="mailto:support@cignito.dev"
+                  href="mailto:tusharrana2505@gmail.com"
                   className="w-10 h-10 bg-white/20 backdrop-blur-sm border-2 border-white rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all group"
                 >
                   <Mail className="w-5 h-5 text-white group-hover:text-primary" />
@@ -113,27 +113,27 @@ export default function Footer() {
               <h3 className="font-black text-white text-lg mb-4">Community</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     📚 Documentation
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     💡 Guidelines
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     🎓 Tutorials
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     💬 Discord
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     📰 Blog
                   </a>
                 </li>
@@ -145,27 +145,27 @@ export default function Footer() {
               <h3 className="font-black text-white text-lg mb-4">Legal</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     📜 Terms of Service
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     🔒 Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     🍪 Cookie Policy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     ⚖️ Code of Conduct
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
+                  <a href="https://github.com/Tushar3330/Cignito" className="text-white/80 hover:text-white font-semibold transition-colors hover:underline">
                     📧 Contact Us
                   </a>
                 </li>
