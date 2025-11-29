@@ -4,10 +4,10 @@ import { getTopSolvers } from "@/lib/queries";
 import Image from "next/image";
 
 const CATEGORIES = [
-  { name: "🔥 Top Solvers", active: true },
-  { name: "⚡ Fastest Response", active: false },
-  { name: "🎯 Most Helpful", active: false },
-  { name: "📈 Rising Stars", active: false },
+  { name: " Top Solvers", active: true },
+  { name: " Fastest Response", active: false },
+  { name: " Most Helpful", active: false },
+  { name: "Rising Stars", active: false },
 ];
 
 const getBadge = (rank: number) => {
@@ -75,9 +75,9 @@ export default async function LeaderboardPage() {
                     </span>
                   </div>
                   <div className="space-y-2 text-sm">
-                    <p className="font-bold">💪 {topSolvers[1].solutions} Solutions</p>
-                    <p className="font-bold">⭐ {topSolvers[1].reputation} Reputation</p>
-                    <p className="font-bold">🔥 {topSolvers[1].streak} Day Streak</p>
+                    <p className="font-bold"> {topSolvers[1].solutions} Solutions</p>
+                    <p className="font-bold"> {topSolvers[1].reputation} Reputation</p>
+                    <p className="font-bold">{topSolvers[1].streak} Day Streak</p>
                   </div>
                 </div>
               </div>
@@ -107,9 +107,9 @@ export default async function LeaderboardPage() {
                     </span>
                   </div>
                   <div className="space-y-2">
-                    <p className="font-black text-lg">💪 {topSolvers[0].solutions} Solutions</p>
-                    <p className="font-black text-lg">⭐ {topSolvers[0].reputation} Reputation</p>
-                    <p className="font-black text-lg">🔥 {topSolvers[0].streak} Day Streak</p>
+                    <p className="font-black text-lg"> {topSolvers[0].solutions} Solutions</p>
+                    <p className="font-black text-lg"> {topSolvers[0].reputation} Reputation</p>
+                    <p className="font-black text-lg"> {topSolvers[0].streak} Day Streak</p>
                   </div>
                 </div>
               </div>
@@ -134,9 +134,9 @@ export default async function LeaderboardPage() {
                     </span>
                   </div>
                   <div className="space-y-2 text-sm">
-                    <p className="font-bold">💪 {topSolvers[2].solutions} Solutions</p>
-                    <p className="font-bold">⭐ {topSolvers[2].reputation} Reputation</p>
-                    <p className="font-bold">🔥 {topSolvers[2].streak} Day Streak</p>
+                    <p className="font-bold">{topSolvers[2].solutions} Solutions</p>
+                    <p className="font-bold">{topSolvers[2].reputation} Reputation</p>
+                    <p className="font-bold">{topSolvers[2].streak} Day Streak</p>
                   </div>
                 </div>
               </div>

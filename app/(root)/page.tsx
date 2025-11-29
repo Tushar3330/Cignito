@@ -34,7 +34,7 @@ export default async function Home({
     <>
       <section className="pink_container !pb-12">
         <h1 className="heading !text-[52px]">
-          🚀 Share Your Bugs, <br />
+          Share Your Bugs, <br />
           Get Expert Solutions
         </h1>
 
@@ -47,7 +47,7 @@ export default async function Home({
 
         {/* All Bugs Title */}
         <div className="mt-8 text-center">
-          <h2 className="text-white font-black text-2xl">🔥 All Bugs</h2>
+          <h2 className="text-white font-black text-2xl"> All Bugs</h2>
         </div>
 
         {/* Filter Chips Carousel */}
@@ -99,20 +99,20 @@ export default async function Home({
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-30-semibold">
                 {query
-                  ? `🔍 Search: "${query}"`
+                  ? `Search: "${query}"`
                   : tag
-                  ? `🏷️ Tag: #${tag}`
+                  ? `Tag: #${tag}`
                   : language
-                  ? `💻 ${language} Bugs`
+                  ? `${language} Bugs`
                   : status
-                  ? `${status === 'OPEN' ? '🐛 Open' : '✅ Solved'} Bugs`
-                  : "🔥 Latest Bugs"}
+                  ? `${status === 'OPEN' ? ' Open' : ' Solved'} Bugs`
+                  : " Latest Bugs"}
               </h2>
               <select className="px-4 py-2 border-3 border-black rounded-xl font-bold bg-white hover:bg-gray-50 cursor-pointer">
-                <option>📅 Newest First</option>
-                <option>🔥 Most Popular</option>
-                <option>� Most Discussed</option>
-                <option>⏰ Recently Updated</option>
+                <option>Newest First</option>
+                <option> Most Popular</option>
+                <option> Most Discussed</option>
+                <option> Recently Updated</option>
               </select>
             </div>
 
